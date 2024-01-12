@@ -1,23 +1,48 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
+import Categories from './CategoriesManagement';
+import Course from './CourseManagement';
 
 function App() {
+  const [form, setForm] = useState({ category: '', code: '' });
+  const [categories, setCategories] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState('');
+
+  const handleInputChange = (name, value) => {
+    setForm((prevForm) => ({
+      ...prevForm,
+      [name]: value,
+    }));
+  };
+
+  const handleAddClick = () => {
+    if (form.category.trim() === '' || form.code.trim() === '') {
+      return;
+    }
+
+    setCategories((prevCategories) => [
+      ...prevCategories,
+      { name: form.category, code: form.code },
+    ]);
+
+    setForm({ category: '', code: '' });
+  };
+
+  const handleSelectCategory = (category) => {
+    setSelectedCategory(category);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='App'>
+      <Categories
+        onInputChange={handleInputChange}
+        onAddClick={handleAddClick}
+        categories={categories}
+        form={form}
+        selectedCategory={selectedCategory}
+        onSelectCategory={handleSelectCategory}
+      />
+      <Course />
     </div>
   );
 }
