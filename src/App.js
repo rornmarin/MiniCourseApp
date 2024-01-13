@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './App.css';
 import Categories from './CategoriesManagement';
 import Course from './CourseManagement';
+import Chapters from './Chapters';
 
 function App() {
   const [form, setForm] = useState({ category: '', code: '' });
@@ -16,21 +17,21 @@ function App() {
   };
 
   const handleAddClick = () => {
+
     if (form.category.trim() === '' || form.code.trim() === '') {
       return;
     }
-
+    
     setCategories((prevCategories) => [
       ...prevCategories,
       { name: form.category, code: form.code },
     ]);
 
     setForm({ category: '', code: '' });
+  
   };
 
-  const handleSelectCategory = (category) => {
-    setSelectedCategory(category);
-  };
+  console.log(categories);
 
   return (
     <div className='App'>
@@ -38,11 +39,13 @@ function App() {
         onInputChange={handleInputChange}
         onAddClick={handleAddClick}
         categories={categories}
+        setForm={setForm}
         form={form}
-        selectedCategory={selectedCategory}
-        onSelectCategory={handleSelectCategory}
       />
-      <Course />
+      
+      <Course categories={categories}/>
+
+      <Chapters />
     </div>
   );
 }
