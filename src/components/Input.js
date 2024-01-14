@@ -37,8 +37,8 @@ export const SelectInput = ({
       >
           <option value="" >{placeholder}</option>
           {
-            options.map(items => (
-              <option key={items.id} value={items.id} >{items.name}</option>))
+            options.map((item) => (
+              <option key={item.id} value={item.id} >{item.name}</option>))
           }
       </select>
       

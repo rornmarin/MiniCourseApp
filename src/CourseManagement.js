@@ -130,10 +130,18 @@ export default function CourseManagement(categories) {
           name="category_id"
           placeholder="Please select category"
           value={form.category_id}
-          // onset={(value) => setForm({ ...form, Category: value })}
           onset={onChange}
-          // options={categories}
+          options={categories}
         />
+
+        {/* <select id="categorySelect" name="category_id">
+          {categories.map((category, index) => (
+            <option key={index} value={category.code}>
+              {category.name}
+            </option>
+          ))}
+        </select> */}
+
         <Input
           label="Summaries"
           name="summarise"

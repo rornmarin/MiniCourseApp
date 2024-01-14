@@ -7,7 +7,7 @@ import Chapters from './Chapters';
 function App() {
   const [form, setForm] = useState({ category: '', code: '' });
   const [categories, setCategories] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState('');
+  
 
   const handleInputChange = (name, value) => {
     setForm((prevForm) => ({
@@ -46,6 +46,7 @@ function App() {
       <Course categories={categories}/>
 
       <Chapters />
+      
     </div>
   );
 }

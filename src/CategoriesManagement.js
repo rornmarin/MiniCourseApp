@@ -18,7 +18,7 @@ const Categories = ({ form, setForm, onAddClick, categories}) => {
       <h1 className='text-3xl my-5 font-sans'> Mini Course </h1>
 
       <div  className="flex justify-between px-10 ">       
-        <h1 className='font-sans text-xl'>Category Management</h1>
+        <h1 className='font-sans text-xl'> Category Management </h1>
         <Button Button={'Add'} onClick = {onAddClick} />
       </div>
 
@@ -66,10 +66,10 @@ const Categories = ({ form, setForm, onAddClick, categories}) => {
                   {
                     categories.map((cat,index) => (
                       <tr key={index}>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-black-800 dark:text-black-200">{index +1}</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-black-800 dark:text-black-200">{cat.name}</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-black-800 dark:text-black-200">{cat.code}</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-end text-sm font-medium">
+                    <td class="px-6 py-3 whitespace-nowrap text-sm font-medium text-black-800 dark:text-black-200">{index +1}</td>
+                    <td class="px-6 py-3 whitespace-nowrap text-sm text-black-800 dark:text-black-200">{cat.name}</td>
+                    <td class="px-6 py-3 whitespace-nowrap text-sm text-black-800 dark:text-black-200">{cat.code}</td>
+                    <td class="px-6 py-3 whitespace-nowrap text-end text-sm font-medium">
                       <button type="button" class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-blue-600 hover:text-blue-800 disabled:opacity-50 disabled:pointer-events-none dark:text-blue-500 dark:hover:text-blue-400 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-black-600">Edit /</button>
                       <button type="button" class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-blue-600 hover:text-blue-800 disabled:opacity-50 disabled:pointer-events-none dark:text-blue-500 dark:hover:text-blue-400 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-black-600">Delete</button>
                     </td>
