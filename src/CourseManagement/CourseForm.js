@@ -90,39 +90,69 @@ export default function CourseForm ({data,onSave,value}) {
         onSave({ ...form, id: uuidv4() }, false);
       };
 
+      useEffect(() => {
+        if (value?.id) {
+          setForm(value);
+          return;
+        }
+        setForm({
+          name: "",
+          category_id: "",
+          summary: "",
+          chapters: [
+            {
+              id: uuidv4(),
+              name: "",
+              summary: "",
+              lessons: [
+                {
+                  id: uuidv4(),
+                  name: "",
+                  summary: "",
+                },
+              ],
+            },
+          ],
+        });
+      }, [value]);
+      console.log(value);
+
   return (
     <div>
 
         <div className="header flex justify-between">
-              <h1 className="text-xl font-bold">New Course</h1>
+              <h1 className='font-sans text-xl px-20'> Add New Course</h1>
               <div className="flex gap-2">
 
-                <button onClick={onSaveCourse}>
-                  {form?.id ? "Update Course" : "Save"}
+                <button  
+                    class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+                    onClick={onSaveCourse}>
+                    {form?.id ? "Update Course" : "Save"}
                 </button>
 
-                <button
-                  onClick={() =>
-                    setForm({
-                      name: "",
-                      category_id: "",
-                      summary: "",
-                      chapters: [
-                        {
-                          id: uuidv4(),
-                          name: "",
-                          summary: "",
-                          lessons: [
+                <button 
+                    class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+                    onClick={() =>
+                        setForm({
+                        name: "",
+                        category_id: "",
+                        summary: "",
+                        chapters: [
                             {
-                              id: uuidv4(),
-                              name: "",
-                              summary: "",
+                            id: uuidv4(),
+                            name: "",
+                            summary: "",
+                            lessons: [
+                                {
+                                id: uuidv4(),
+                                name: "",
+                                summary: "",
+                                },
+                            ],
                             },
-                          ],
-                        },
-                      ],
-                    })
-                  }
+                        ],
+                        })
+                    }
                 >
                   Reset
                 </button>
@@ -138,21 +168,22 @@ export default function CourseForm ({data,onSave,value}) {
           value={form.name}
           onChangeHandler={onChangeCourse}
         />
-        
-        <SelectOption
-            data={data}
-            onChangeHandler={onChangeCourse}
-            name = "category_id"
-            value={form?.category_id}
-        />
 
         <TextBox
-        //   label="Summaries"
+          label="Summaries"
           name="summary"
           placeholder="Summaries"
           value={form.summary}
           onChangeHandler={onChangeCourse}
           
+        />
+
+        <SelectOption
+            label="Category"
+            data={data}
+            onChangeHandler={onChangeCourse}
+            name = "category_id"
+            value={form?.category_id}
         />
       </div>
     </div>

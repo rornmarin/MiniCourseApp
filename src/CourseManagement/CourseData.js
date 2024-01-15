@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 export default function CourseData({
     data,
@@ -7,6 +7,9 @@ export default function CourseData({
     onEditing
 }) 
 {
+
+    const [isEdit,setEdit] = useState(false);
+
   return (
     <div class="flex flex-col">
         <div class="-m-1.5 mx-10 py-5">
@@ -36,12 +39,26 @@ export default function CourseData({
                           <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-black-800 dark:text-black-200">{course.id}</td>
                           <td class="px-6 py-4 whitespace-nowrap text-sm text-black-800 dark:text-black-200">{course.name}</td>
                           <td class="px-6 py-4 whitespace-nowrap text-sm text-black-800 dark:text-black-200">{course.summary}</td>
-                          <td class="px-6 py-4 whitespace-nowrap text-sm text-black-800 dark:text-black-200">{course.Category_id}/ {categoryName}</td>
+                          <td class="px-6 py-4 whitespace-nowrap text-sm text-black-800 dark:text-black-200">{course.category_id}/{categoryName}</td>
                           <td class="px-6 py-4 whitespace-nowrap text-sm text-black-800 dark:text-black-200">0</td>
                           <td class="px-6 py-4 whitespace-nowrap text-sm text-black-800 dark:text-black-200">0</td>
                           <td class="px-6 py-4 whitespace-nowrap text-end text-sm font-medium">
-                            <button type="button" class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-blue-600 hover:text-blue-800 disabled:opacity-50 disabled:pointer-events-none dark:text-blue-500 dark:hover:text-blue-400 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-black-600">Edit /</button>
-                            <button type="button" class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-blue-600 hover:text-blue-800 disabled:opacity-50 disabled:pointer-events-none dark:text-blue-500 dark:hover:text-blue-400 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-black-600">Delete</button>
+                            <button type="button" class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-blue-600 hover:text-blue-800 disabled:opacity-50 disabled:pointer-events-none dark:text-blue-500 dark:hover:text-blue-400 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-black-600"
+                                onClick={() => {
+                                    setEdit((pre) => !pre);
+
+                                    if (isEdit == false ){
+                                        onEditing(course?.id, !isEdit);
+                                        return;
+                                    }
+                                    onEditing(course?.id, !isEdit)
+                                }}> Edit /
+                            </button>
+
+                            <button type="button" class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-blue-600 hover:text-blue-800 disabled:opacity-50 disabled:pointer-events-none dark:text-blue-500 dark:hover:text-blue-400 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-black-600"
+                                onClick={() => onDelet(course?.id)}>
+                                Delete
+                            </button>
                           </td>
                         </tr>
                           )

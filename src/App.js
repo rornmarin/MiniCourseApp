@@ -113,6 +113,17 @@ function App() {
       name:"",
       code:"",
     })
+
+    const isEdit = params?.isEdit;
+    if (isEdit) {
+      setForm ({
+        id:"",
+        name:"",
+        code:""
+      });
+      setForm({...params.category});
+      return;
+    }
   };
 
   const onDeleteCategory = (id) => {
