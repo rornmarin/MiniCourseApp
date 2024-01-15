@@ -1,49 +1,143 @@
 import React, { useState } from 'react';
 import './App.css';
-import Categories from './CategoriesManagement';
-import Course from './CourseManagement';
 import Chapters from './Chapters';
+import { v4 as uuidv4 } from 'uuid';
+import CategorySection from './CategoryManagement/CategorySection';
+import CourseManagement from './CourseManagement/CourseSection';
+
 
 function App() {
-  const [form, setForm] = useState({ category: '', code: '' });
-  const [categories, setCategories] = useState([]);
+  const [form, setForm] = useState({ 
+    id:"",
+    name: '',
+    code: '' });
+
+  const [data,setData] = useState([ 
+    {
+      id: 10,
+      name: "The Baddy Course",
+      category_id: "12835ce6-163e-402b-b500-5651fd4d8093",
+      summary: "This is the best course",
+      chapters: [
+        {
+          id: 1,
+          name: "The Chapter Course",
+          summary: "This Chapter is so cool",
+          lessons: [
+            {
+              id: 1,
+              name: "The Lesson Course",
+              summary: "This Lesson is so cool",
+            },
+          ],
+        },
+        {
+          id: 2,
+          name: "The Chapter Course",
+          summary: "This Chapter is so cool",
+          lessons: [
+            {
+              id: 1,
+              name: "The Lesson Course",
+              summary: "This Lesson is so cool",
+            },
+          ],
+        },
+        {
+          id: 3,
+          name: "The Chapter Course",
+          summary: "This Chapter is so cool",
+          lessons: [
+            {
+              id: 1,
+              name: "The Lesson Course",
+              summary: "This Lesson is so cool",
+            },
+          ],
+        },
+      ],
+    },
+
+  ])
+
+  const [listCategories, setCategories] = useState([
+    {
+      id: "12835ce6-163e-402b-b500-5651fd4d8091",
+      name: "React",
+      code: "4567890;",
+    },
+    {
+      id: "12835ce6-163e-402b-b500-5651fd4d8092",
+      name: "Testing",
+      code: "234567890",
+    }
+   
+  ]);
   
 
-  const handleInputChange = (name, value) => {
-    setForm((prevForm) => ({
-      ...prevForm,
-      [name]: value,
-    }));
-  };
+  const onSaveCategory = (params, isEdit) =>{
+    setForm ({
 
-  const handleAddClick = () => {
+      id:"",
+      name:"",
+      code:"",
 
-    if (form.category.trim() === '' || form.code.trim() === '') {
+    });
+
+    if(isEdit == true ){
+      setCategories((pre) => 
+        pre.map((category,index,arr) => {
+          if(category.id === params?.id){
+            category = params;
+          }
+          return category;
+        })
+      );
       return;
     }
-    
-    setCategories((prevCategories) => [
-      ...prevCategories,
-      { name: form.category, code: form.code },
-    ]);
+    setCategories((pre) => {
+      const arr = pre.slice();
+      arr.push({
+        id: uuidv4(),
+        name:params?.name,
+        code:params?.code,
+      })
+      return [...arr];
+    })
+  }
 
-    setForm({ category: '', code: '' });
-  
+
+  const onEditCategory = (params) => {
+    setForm({
+      id:"",
+      name:"",
+      code:"",
+    })
   };
 
-  console.log(categories);
+  const onDeleteCategory = (id) => {
+    setCategories((pre) => pre.filter((category) => category?.id !== id));
+    setData((pre) => {
+      return pre.filter((data) => data.category_id !== id);
+    })
+  }
 
   return (
     <div className='App'>
-      <Categories
-        onInputChange={handleInputChange}
-        onAddClick={handleAddClick}
-        categories={categories}
-        setForm={setForm}
+      <CategorySection
+        data={listCategories}
+        onSave={onSaveCategory}
+        onEdit={onEditCategory}
+        onDelete={onDeleteCategory}
         form={form}
       />
-      
-      <Course categories={categories}/>
+
+      <CourseManagement 
+        category={listCategories}
+        data={data}
+        setData={setData}
+      />
+    
 
       <Chapters />
       
