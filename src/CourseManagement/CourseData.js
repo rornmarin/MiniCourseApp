@@ -30,7 +30,7 @@ export default function CourseData({
                 <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
                   {
                     data?.map((course) => {
-                        console.log(data)
+                        console.log("data------------:",data)
                         const categoryName = category?.find(
                             (cate) => cate?.id === + course?.category_id
                         )?.name;
@@ -40,8 +40,12 @@ export default function CourseData({
                           <td class="px-6 py-4 whitespace-nowrap text-sm text-black-800 dark:text-black-200">{course.name}</td>
                           <td class="px-6 py-4 whitespace-nowrap text-sm text-black-800 dark:text-black-200">{course.summary}</td>
                           <td class="px-6 py-4 whitespace-nowrap text-sm text-black-800 dark:text-black-200">{course.category_id}/{categoryName}</td>
-                          <td class="px-6 py-4 whitespace-nowrap text-sm text-black-800 dark:text-black-200">0</td>
-                          <td class="px-6 py-4 whitespace-nowrap text-sm text-black-800 dark:text-black-200">0</td>
+                          <td class="px-6 py-4 whitespace-nowrap text-sm text-black-800 dark:text-black-200">{course?.chapters?.length}</td>
+                          <td class="px-6 py-4 whitespace-nowrap text-sm text-black-800 dark:text-black-200">
+                            {course?.chapters?.reduce((sum, chapter) => {
+                              return sum + chapter?.lessons?.length;
+                              },0)}
+                          </td>
                           <td class="px-6 py-4 whitespace-nowrap text-end text-sm font-medium">
                             <button type="button" class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-blue-600 hover:text-blue-800 disabled:opacity-50 disabled:pointer-events-none dark:text-blue-500 dark:hover:text-blue-400 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-black-600"
                                 onClick={() => {

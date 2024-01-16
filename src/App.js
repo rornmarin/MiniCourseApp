@@ -148,9 +148,6 @@ function App() {
         data={data}
         setData={setData}
       />
-    
-
-      <Chapters />
       
     </div>
   );

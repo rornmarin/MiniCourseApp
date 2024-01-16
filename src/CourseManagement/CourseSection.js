@@ -41,7 +41,7 @@ export default function CourseManagement ({category, data, setData}) {
     <div>
 
       <div  className="flex justify-between px-10 ">       
-        <h1 className='font-sans text-xl'>Course Management</h1>
+        <h1 className='font-sans text-xl font-bold'>Course Management</h1>
         {/* <Button Button={'Add'} onClick = {handleAddClick} /> */}
       </div>
 

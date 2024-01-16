@@ -12,9 +12,17 @@ export default function CategorySection({
 }) {
   return (
     <div>
-    
-      <CategoryForm onSave={onSave} value={form} />
+      <h1 className='text-3xl my-5 font-sans font-bold'> Mini Course </h1>
+      <div  className="flex justify-between px-10 ">       
+        <h1 className='font-sans text-xl font-bold'>Category Management</h1>
+        {/* <Button Button={'Add'} onClick = {handleAddClick} /> */}
+      </div>
       <CategoryTable data={data} onDelete={onDelete} onEdit={onEdit} onSave={onSave} setEdit={setEdit}/>
+
+      <div className='py-5 my-5 border-primary700 rounded-xl bg-indigo-200 shadow-lg shadow-slate-100 mx-10'>
+        <CategoryForm onSave={onSave} value={form} />
+      </div>
+
     </div>
   )
 }

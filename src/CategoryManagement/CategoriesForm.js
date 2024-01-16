@@ -46,10 +46,8 @@ export default function CategoryForm ({ onSave,value}) {
   return (
     <div className='justify-center'>
 
-      <h1 className='text-3xl my-5 font-sans'> Mini Course </h1>
-
-      <div  className="flex justify-between px-10 ">       
-        <h1 className='font-sans text-xl'> Category Management </h1>
+      <div  className="flex justify-between px-20 ">       
+        <h1 className='font-sans text-xl'>Add New Category </h1>
 
 
         <button  className="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
