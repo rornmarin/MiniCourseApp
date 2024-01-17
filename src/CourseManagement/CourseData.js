@@ -10,6 +10,7 @@ export default function CourseData({
 
     const [isEdit,setEdit] = useState(false);
 
+    console.log(data);
   return (
     <div class="flex flex-col">
         <div class="-m-1.5 mx-10 py-5">

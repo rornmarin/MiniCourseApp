@@ -3,7 +3,12 @@ import React from 'react';
 import Select from 'react-select';
 
 const SelectOption = ({ label, data, onChangeHandler, name, value }) => {
-  const handleChange = (selectedOptions) => {
+
+  // const handleChange = (selectedOption) => {
+  //   const selectedValue = selectedOption ? selectedOption.value : null;
+  //   onChangeHandler({ target: { name, value: selectedValue } });
+  // };
+  const handleChange = (selectedOptions) => { 
     const selectedValues = selectedOptions ? selectedOptions.map((option) => option.value) : [];
     onChangeHandler({ target: { name, value: selectedValues } });
   };

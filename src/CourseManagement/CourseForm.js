@@ -6,12 +6,81 @@ import { v4 as uuidv4 } from 'uuid';
 import ChapterForm from '../Chapters/ChapterForm';
 import { Formik, Form, Field,ErrorMessage } from 'formik';
 import { FormikInput } from '../components/Input';
+import * as Yup from 'yup';
+import { CourseSchema } from '../schema';
 
+
+// const validationSchema = Yup.object({
+//   name: Yup.string().required('Course name is required'),
+//   summary: Yup.string().required('Summary is required'),
+//   // category_id: Yup.string().required('Category is required'),
+//   // chapters: Yup.array().of(
+//   //   Yup.object().shape({
+//   //     name: Yup.string().required('Chapter name is required'),
+//   //     summary: Yup.string().required('Chapter summary is required'),
+//   //     lessons: Yup.array().of(
+//   //       Yup.object().shape({
+//   //         name: Yup.string().required('Lesson name is required'),
+//   //         summary: Yup.string().required('Lesson summary is required'),
+//   //       })
+//   //     ),
+//   //   })
+//   // ),
+// });
 
 export default function CourseForm ({data,onSave,value}) {
-  
-  const initialForm = {
+
+
+  const [form, setForm] = useState( {
     name: "",
+    category_id: "",
+    summary: "",
+        chapters: [
+          {
+            id: uuidv4(),
+            name: "",
+            summary: "",
+            lessons: [
+              {
+                id: uuidv4(),
+                name: "",
+                summary: "",
+              },
+            ],
+          },
+        ],
+  });
+  
+    const onChangeCourse = (e) => {
+        const {name, value} = e.target;
+        setForm((pre) => (
+          {
+            ...pre,
+            [name]:value,
+          }
+        ))
+    }
+
+    // const onSaveCourse =(values, {resetForm}) =>{
+    //   onSave(values,values?.id? true : false);
+    //   resetForm();
+    //   console.log('value--------------:',values)
+    // }
+
+    const onSaveCourse = (values) => {
+      console.log(values);
+      console.log('category_id',values)
+    
+      if (form?.id) {
+        onSave(values, true);
+      } else {
+        onSave(values, false);
+      }
+    
+  
+    
+      setForm({
+        name: "",
         category_id: "",
         summary: "",
         chapters: [
@@ -28,51 +97,7 @@ export default function CourseForm ({data,onSave,value}) {
             ],
           },
         ],
-  }
-
-  const [form, setForm] = useState(initialForm)
-  
-    const onChangeCourse = (e) => {
-        const {name, value} = e.target;
-        setForm((pre) => {
-            return {
-                ...pre,
-                [name]:value,
-            }
-        })
-    }
-
-    const isEmpty = (value) =>
-    value === null ||
-    value === "" ||
-    (Array.isArray(value) && value.length === 0);
-
-
-    const validateObject = (obj) => {
-        for (const [key, value] of Object.entries(obj)) {
-          if (isEmpty(value)) {
-            return false;
-          }
-    
-          if (typeof value === "object" && !validateObject(value)) {
-            return false;
-          }
-        }
-        return true;
-    };
-
-    const onSaveCourse = () => {
-
-        // if (!validateObject(form)) {
-        //   alert("Please fill in Courses Form");
-        //   return;
-        // }
-        setForm(initialForm);
-        if (form?.id) {
-          onSave({ ...form }, true);
-          return;
-        }
-        onSave({ ...form, id: uuidv4() }, false);
+      });
     };
 
       const onAddChapter = (chapterIndex) => {
@@ -178,7 +203,7 @@ export default function CourseForm ({data,onSave,value}) {
       };
 
     return (
-      <Formik initialValues={form} onSubmit={onSaveCourse}>
+      <Formik initialValues={form} onSubmit={onSaveCourse} validationSchema={CourseSchema}>
         <Form className='px-10 py-10 border-primary700 rounded-xl bg-indigo-200 shadow-lg shadow-slate-100 mx-10'>
           <div className="header flex justify-between px-10" >
               <h1 className='font-sans text-xl font-bold'> Add New Course</h1>
@@ -200,23 +225,21 @@ export default function CourseForm ({data,onSave,value}) {
                 </div>
               </div>
 
-          <div className='px-10 '>
+          <div className='px-10 text-left '>
+
           <FormikInput
             label="Course"
             placeholder="Input Course Name"
             name="name"
-            value={form.name}
-            onChange={onChangeCourse}
           />
+          <ErrorMessage name='name' component="div" className='text-red-500' />
 
           <FormikInput
             label="Summaries"
             name="summary"
             placeholder="Summaries"
-            value={form.summary}
-            onChange={onChangeCourse}
-            
           />
+          <ErrorMessage name='summary' component="div" className='text-red-500' />
 
           <SelectOption
               label="Category"
@@ -225,6 +248,8 @@ export default function CourseForm ({data,onSave,value}) {
               name = "category_id"
               value={form?.category_id}
           />
+          {/* <ErrorMessage name='category_id' component="div" className='text-red-500' /> */}
+
         </div>
 
         <ChapterForm

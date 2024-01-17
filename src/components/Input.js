@@ -29,10 +29,10 @@ export const FormikInput = ({label, ...props}) => {
 
   return(
 
-      <div className="mb-5 mt-8">
+      <div className="mb-2 mt-4">
       <label className="float-start font-bold mb-2 text-xl text-gray-900 dark:text-white">{label}</label>
       <input
-        className="w-full mb-6 bg-gray-100 border border-gray-300 text-black-900 text-sm rounded-lg focus:ring-gray-500 focus:border-red-300 block p-2.5 dark:bg-with-700 dark:border-gray-600 dark:placeholder-gray-300 dark:text-gray-800 dark:focus:ring-gray-500 dark:focus:border-gray-500"
+        className="w-full bg-gray-100 border border-gray-300 text-black-900 text-sm rounded-lg focus:ring-gray-500 focus:border-red-300 block p-2.5 dark:bg-with-700 dark:border-gray-600 dark:placeholder-gray-300 dark:text-gray-800 dark:focus:ring-gray-500 dark:focus:border-gray-500"
         {...field}
         {...props}
       />

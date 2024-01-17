@@ -14,7 +14,7 @@ function App() {
 
   const [data,setData] = useState([ 
     {
-      id: 10,
+      id: 1,
       name: "The Baddy Course",
       category_id: "12835ce6-163e-402b-b500-5651fd4d8093",
       summary: "This is the best course",
@@ -73,6 +73,7 @@ function App() {
     }
    
   ]);
+  console.log('listCategories',listCategories)
   
 
   const onSaveCategory = (params, isEdit) =>{
@@ -86,7 +87,7 @@ function App() {
 
     if(isEdit == true ){
       setCategories((pre) => 
-        pre.map((category,index,arr) => {
+        pre.map((category) => {
           if(category.id === params?.id){
             category = params;
           }

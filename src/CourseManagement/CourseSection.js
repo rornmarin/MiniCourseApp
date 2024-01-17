@@ -7,6 +7,7 @@ export default function CourseManagement ({category, data, setData}) {
   const [editForm, setEditForm] = useState({});
 
   const onSaveData = (save, isEdit) => {
+    console.log('save==============:',save);
     if(isEdit == true ) {
         setData((pre) => 
             pre.map((data) => {
@@ -17,8 +18,17 @@ export default function CourseManagement ({category, data, setData}) {
             })
         );
         return;
+    }else{
+      setData(prev => {
+        prev.push({
+          id:data.length + 1,
+          ...save
+        })
+
+        return [...prev]
+      })
     }
-    setData((pre) => [...pre, save]);
+   
   };
 
   const onDeleteData = (id) => {

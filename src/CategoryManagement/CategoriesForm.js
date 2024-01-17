@@ -1,6 +1,8 @@
 import React,{useEffect,useState} from 'react';
 import { FormikInput, Input } from '../components/Input';
-import { Formik,Form } from 'formik';
+import { Formik,Form,Field,ErrorMessage, validateYupSchema } from 'formik';
+import * as Yup from 'yup';
+import { validationCategory } from '../schema';
 
 export default function CategoryForm ({ onSave}) {
 
@@ -11,10 +13,18 @@ export default function CategoryForm ({ onSave}) {
   }
 
   const onSubmit =(values, {resetForm}) =>{
-    onSave(values,values?.id? true : false);
+  
+    if(values?.id){
+      onSave(values,true)
+      return
+    }
     resetForm();
+    onSave (values,false)
+
     console.log('value--------------:',values)
   }
+
+  
     
 //  const [form, setForm] = useState ({
 //   id: "",
@@ -56,7 +66,7 @@ export default function CategoryForm ({ onSave}) {
 
 
   return (
-    <Formik initialValues={initialValues} onSubmit={onSubmit}>
+    <Formik initialValues={initialValues} onSubmit={onSubmit} validateYupSchema={validationCategory}>
       <Form className='justify-center'>
 
       <div  className="flex justify-between px-20 ">       
@@ -72,11 +82,16 @@ export default function CategoryForm ({ onSave}) {
       </div>
 
 
-      <div className='px-20 '>
+      <div className='px-20 text-left'>
         
-        <FormikInput label='Category' name={'name'} placeholder="Input Category Name"/>
+        <div>
+          <FormikInput label='Category' name={'name'} placeholder="Input Category Name"/>
+          <ErrorMessage name='name' component="div" className='text-red-500' />
+        </div>
+        <div>
         <FormikInput label='Code' name={'code'} placeholder="Input Code"/>
-        
+        <ErrorMessage name='code' component="div" className='text-red-500' />
+        </div>
       </div>
 
       </Form>
