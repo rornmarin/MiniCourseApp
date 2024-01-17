@@ -140,13 +140,14 @@ function App() {
         onSave={onSaveCategory}
         onEdit={onEditCategory}
         onDelete={onDeleteCategory}
+        form={form}
       />
 
-      {/* <CourseManagement 
+      <CourseManagement 
         category={listCategories}
         data={data}
         setData={setData}
-      /> */}
+      />
       
     </div>
   );
