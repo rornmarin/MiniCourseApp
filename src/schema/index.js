@@ -8,7 +8,7 @@ export const validateCourse = Yup.object().shape({
     summary: Yup.string()
         .min(1, "summary must be at least 5 character ")
         .required(" Course Summary is Required *"),
-    category_id: Yup.string().required(" Course Category is Required *"),
+    category_id: Yup.number().required(" Course Category is Required *"),
     chapters: Yup.array().of(
         Yup.object().shape({
         name: Yup.string().required(" Chapters Name is Required *"),

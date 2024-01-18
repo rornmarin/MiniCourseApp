@@ -18,10 +18,10 @@ const SelectOption = ({ label, data, onChangeHandler, name, value }) => {
     value: item.id, 
     label: item.name, 
   }));
-
+  // float-start font-bold mb-2 text-xl text-gray-900 dark:text-white
   return (
     <div className='text-left my-5'>
-      <label className="block mb-2 text-sm font-medium text-black-900 dark:text-black text-left">{label}</label>
+      <label className="block font-bold mb-2 text-xl text-gray-900 dark:text-white text-left">{label}</label>
       <Select
         isMulti
         options={options}

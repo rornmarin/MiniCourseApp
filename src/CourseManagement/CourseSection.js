@@ -21,11 +21,11 @@ export default function CourseManagement ({category, data, setData}) {
             })
         );
         setEditForm({})
-        setEditForm(false)
+        setCourseEdit(false)
 
         return;
     }
-    setData((pre) => [...pre,{
+    setData((pre) => [...pre, {
       ...save,
       id:uuidv4()
     }]);
@@ -37,16 +37,22 @@ export default function CourseManagement ({category, data, setData}) {
 
   const onEditingCourse = (id) => {
 
-    setCourseEdit(pre => !pre)
-    if (isCouresEdit === false) {
-
+    console.log(isCouresEdit)
+    setCourseEdit(pre=>!pre)
+    if (isCouresEdit === false) 
+    
+    {
+  
       const result = data?.find((course) => course.id === id);
       setEditForm(result);
+   
+ 
       return;
     }
-
     setEditForm({});
   };
+
+  console.log('isCouresEdit',editForm)
 
 
   return (

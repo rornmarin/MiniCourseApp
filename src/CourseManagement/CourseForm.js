@@ -32,7 +32,7 @@ export default function CourseForm ({data,onSave,value}) {
 
     return (
       <Formik 
-      // enableReinitialize={true}
+      enableReinitialize={true}
       initialValues={value?.id ? value :initialValues} 
       validationSchema={validateCourse} 
       onSubmit={(values, actions) => {
@@ -47,88 +47,91 @@ export default function CourseForm ({data,onSave,value}) {
       >
         {(props) => {
           return (
-            <Form onSubmit={(e) => {
-              props.handleSubmit(e);
-            }}
-            className='px-10 py-10 border-primary700 rounded-xl bg-indigo-200 shadow-lg shadow-slate-100 mx-10'>
-            <div className="header flex justify-between px-10" >
-                <h1 className='font-sans text-xl font-bold'> Add New Course</h1>
-                  <div className="flex gap-2">
+            <div className='px-10 py-10 border-primary700 rounded-xl bg-indigo-200 shadow-lg shadow-slate-100 mx-10 my-5'> 
+              <Form onSubmit={(e) => {
+                  props.handleSubmit(e);
+                }}
+                >
+                <div className="header flex justify-between px-10" >
+                    <h1 className='font-sans text-xl font-bold'> Add New Course</h1>
+                      <div className="flex gap-2">
 
-                    <button  
-                        className="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
-                        type='submit'>
-                        {value?.id ? "Update Course" : "Save"}
-                    </button>
+                        <button  
+                            className="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+                            type='submit'>
+                            {value?.id ? "Update Course" : "Save"}
+                        </button>
 
-                    <button 
-                        className="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
-                        type='reset'
-                    >
-                      Reset
-                    </button>
+                        <button 
+                            className="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+                            type='reset'
+                        >
+                          Reset
+                        </button>
 
-                  </div>
+                      </div>
+                    </div>
+
+                <div className='px-10 text-left '>
+
+                  <FormikInput
+                    label="Course"
+                    placeholder="Input Course Name"
+                    name="name"
+                    onBlurHandler={props?.handleBlur}
+                    onChangeHandler={props?.handleChange}
+                    value={props?.values?.name}
+                  />
+                  <ErrorMessage name='name' component="div" className='text-red-500' />
+
+                  <TextBox
+                    label="Summaries"
+                    name="summary"
+                    placeholder="Summaries"
+                    onBlurHandler={props?.handleBlur}
+                    onChangeHandler={props?.handleChange}
+                    value={props?.values?.summary}
+                  />
+                  <ErrorMessage name='summary' component="div" className='text-red-500' />
+
+                  <SelectOption
+                      label="Category"
+                      data={data}
+                      name = "category_id"
+                      onBlurHandler={props?.handleBlur}
+                      onChangeHandler={props?.handleChange}
+                      value={props?.values?.category_id}
+                    
+
+                  />
+                  <ErrorMessage name='category_id' component="div" className='text-red-500' />
+
                 </div>
 
-            <div className='px-10 text-left '>
+                <FieldArray name = "chapters">
+                  {({insert, remove, push}) => (
 
-            <FormikInput
-              label="Course"
-              placeholder="Input Course Name"
-              name="name"
-              onBlurHandler={props?.handleBlur}
-              onChangeHandler={props?.handleChange}
-              value={props?.values?.name}
-            />
-            <ErrorMessage name='name' component="div" className='text-red-500' />
+                    <>
+                    {props?.values?.chapters.length > 0 && 
+                      props?.values?.chapters.map((chapter,chapterindex) => (
 
-            <TextBox
-              label="Summaries"
-              name="summary"
-              placeholder="Summaries"
-              onBlurHandler={props?.handleBlur}
-              onChangeHandler={props?.handleChange}
-              value={props?.values?.summary}
-            />
-            <ErrorMessage name='summary' component="div" className='text-red-500' />
+                        <ChapterForm
+                          key={chapter.id}
+                          chapterIndex = {chapterindex}
+                          chapter = {chapter}
+                          props = {props}
+                          remove = {remove}
+                          push = {push}
+                          />
 
-            <SelectOption
-                label="Category"
-                data={data}
-                name = "category_id"
-                onBlurHandler={props?.handleBlur}
-                onChangeHandler={props?.handleChange}
-                value={props?.values?.category_id}
-               
-
-            />
-            <ErrorMessage name='category_id' component="div" className='text-red-500' />
-
-          </div>
-
-            <FieldArray name = "chapters">
-              {({insert, remove, push}) => (
-
-                <>
-                {props?.values?.chapters.length > 0 && 
-                  props?.values?.chapters.map((chapter,chapterindex) => (
-
-                    <ChapterForm
-                      key={chapter.id}
-                      chapterIndex = {chapterindex}
-                      chapter = {chapter}
-                      props = {props}
-                      remove = {remove}
-                      push = {push}
-                      />
-
-                  ))}
-                </>
-              )}
-            </FieldArray>
-          
-        </Form>
+                      ))}
+                    </>
+                  )}
+                </FieldArray>
+              
+              </Form>
+            </div>
+            
           )
         }}
       </Formik>

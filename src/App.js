@@ -10,7 +10,8 @@ function App() {
     id:"",
     name: '',
     code: '' });
-
+  const [isEditCategory,setEditCategory] =useState(false);
+ 
   const [data,setData] = useState([ 
     {
       id: 1,
@@ -93,6 +94,7 @@ function App() {
           return category;
         })
       );
+      setEditCategory((pre) => !pre);
       return;
     }
     setCategories((pre) => {
@@ -103,7 +105,8 @@ function App() {
         code:params?.code,
       })
       return [...arr];
-    })
+    });
+    setEditCategory(false);
   }
 
 
@@ -113,7 +116,7 @@ function App() {
       name:"",
       code:"",
     })
-
+    setEditCategory((pre) => !pre);
     const isEdit = params?.isEdit;
     if (isEdit) {
       setForm ({
@@ -141,6 +144,7 @@ function App() {
         onEdit={onEditCategory}
         onDelete={onDeleteCategory}
         form={form}
+        isEdit={isEditCategory}
       />
 
       <CourseManagement 

@@ -8,7 +8,8 @@ export default function CategorySection({
     onDelete,
     form,
     onEdit,
-    setEdit
+    setEdit,
+    isEdit,
 }) {
   return (
     <div>
@@ -17,7 +18,7 @@ export default function CategorySection({
         <h1 className='font-sans text-xl font-bold'>Category Management</h1>
         {/* <Button Button={'Add'} onClick = {handleAddClick} /> */}
       </div>
-      <CategoryTable data={data} onDelete={onDelete} onEdit={onEdit} onSave={onSave} setEdit={setEdit}/>
+      <CategoryTable data={data} onDelete={onDelete} onEdit={onEdit} onSave={onSave} setEdit={setEdit} isEdit={isEdit}/>
 
       <div className='py-5 my-5 border-primary700 rounded-xl bg-indigo-200 shadow-lg shadow-slate-100 mx-10'>
         <CategoryForm onSave={onSave} value={form} />
