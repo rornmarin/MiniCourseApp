@@ -35,14 +35,14 @@ export default function CourseData({
                 </thead>
                 <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
                   {
-                    data?.map((course) => {
+                    data?.map((course,index) => {
                         console.log("data------------:",data)
                         const categoryName = category?.find(
                             (cate) => cate?.id === + course?.category_id
                         )?.name;
                         return (
-                            <tr key={course.id}>
-                          <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-black-800 dark:text-black-200">{course.id}</td>
+                            <tr key={index}>
+                          <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-black-800 dark:text-black-200">{index +1}</td>
                           <td class="px-6 py-4 whitespace-nowrap text-sm text-black-800 dark:text-black-200">{course.name}</td>
                           <td class="px-6 py-4 whitespace-nowrap text-sm text-black-800 dark:text-black-200">{course.summary}</td>
                           <td class="px-6 py-4 whitespace-nowrap text-sm text-black-800 dark:text-black-200">/{course.category_id}/{categoryName}</td>
