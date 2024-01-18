@@ -1,7 +1,6 @@
-import React,{useEffect,useState} from 'react';
-import { FormikInput, Input } from '../components/Input';
-import { Formik,Form,Field,ErrorMessage, validateYupSchema } from 'formik';
-import * as Yup from 'yup';
+import React from 'react';
+import { FormikInput } from '../components/Input';
+import { Formik,Form,ErrorMessage } from 'formik';
 import { validationCategory } from '../schema';
 
 export default function CategoryForm ({ onSave}) {
@@ -20,53 +19,12 @@ export default function CategoryForm ({ onSave}) {
     }
     resetForm();
     onSave (values,false)
-
     console.log('value--------------:',values)
+
   }
 
-  
-    
-//  const [form, setForm] = useState ({
-//   id: "",
-//   name: "",
-//   code: "",
-//  });
-  
-//   const onChange = (e) => {
-//     const name= e.target.name
-//     const value = e.target.value
-//     console.log("value",value)
-//     setForm({
-//       ...form,
-//       [name]:value
-//     })
-//   }
-
-//   const onSaveCategory = (e,params) => {
-
-//     e.preventDefault();
-
-//     if (!form?.name || !form?.code){
-//       alert ("Please fill in Category Form");
-//       return;
-//     }
-//     setForm ({ name: "" ,code:"" });
-//     onSave(form,params);
-
-//   };
-//   console.log('form:',form)
-
-//   useEffect(() => {
-//     if (value) {
-//       setForm(value);
-//       return;
-//     }
-//     setForm({ name: "", code: "" });
-//   }, [value]);
-
-
   return (
-    <Formik initialValues={initialValues} onSubmit={onSubmit} validateYupSchema={validationCategory}>
+    <Formik initialValues={initialValues} onSubmit={onSubmit} validateYupSchema={validationCategory} validationSchema={validationCategory}>
       <Form className='justify-center'>
 
       <div  className="flex justify-between px-20 ">       

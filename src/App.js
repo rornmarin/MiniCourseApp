@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import './App.css';
-import Chapters from './Chapters';
 import { v4 as uuidv4 } from 'uuid';
 import CategorySection from './CategoryManagement/CategorySection';
 import CourseManagement from './CourseManagement/CourseSection';
@@ -85,7 +84,7 @@ function App() {
 
     });
 
-    if(isEdit == true ){
+    if(isEdit === true ){
       setCategories((pre) => 
         pre.map((category) => {
           if(category.id === params?.id){

@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
 import CourseData from './CourseData';
 import CourseForm from './CourseForm';
+import { v4 as uuidv4 } from 'uuid';
+
 
 export default function CourseManagement ({category, data, setData}) {
   
   const [editForm, setEditForm] = useState({});
+  const [isCouresEdit, setCourseEdit] = useState(false);
 
   const onSaveData = (save, isEdit) => {
-    console.log('save==============:',save);
-    if(isEdit == true ) {
+    console.log(save);
+    if(isEdit === true ) {
         setData((pre) => 
             pre.map((data) => {
                 if(data.id === save?.id){
@@ -17,27 +20,26 @@ export default function CourseManagement ({category, data, setData}) {
                 return data;
             })
         );
-        return;
-    }else{
-      setData(prev => {
-        prev.push({
-          id:data.length + 1,
-          ...save
-        })
+        setEditForm({})
+        setEditForm(false)
 
-        return [...prev]
-      })
+        return;
     }
-   
+    setData((pre) => [...pre,{
+      ...save,
+      id:uuidv4()
+    }]);
   };
 
   const onDeleteData = (id) => {
     setData((pre) => pre.filter((data) => data?.id !== id));
   };
 
-  const onEditingCourse = (id, isEdit) => {
+  const onEditingCourse = (id) => {
 
-    if (isEdit == true) {
+    setCourseEdit(pre => !pre)
+    if (isCouresEdit === false) {
+
       const result = data?.find((course) => course.id === id);
       setEditForm(result);
       return;
